@@ -11,7 +11,6 @@ export const Footer = styled("footer")(({theme:{palette,spacing}}) => ({
 }));
 
 export const VercelLink = styled("a")(()=>({
-    // flexDirection: "row",
     display: "flex",
 }));
 

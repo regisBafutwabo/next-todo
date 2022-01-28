@@ -7,7 +7,7 @@
     "build": "yarn && yarn run relay && next build",
     "start": "yarn && yarn run relay && next start",
     "lint": "next lint",
-    "relay": "yarn run relay-compiler --src . --schema ./config/relay/schema.graphql"
+    "relay": "yarn run relay-compiler"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
