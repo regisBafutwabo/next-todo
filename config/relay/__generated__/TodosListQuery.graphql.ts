@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e127e4b145852df02a9174f83d3abb46>>
+ * @generated SignedSource<<a452f12a45c0ab9a4718c01225d83b40>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,6 +18,7 @@ export type todo_bool_exp = {
   completed?: Boolean_comparison_exp | null;
   created_at?: timestamptz_comparison_exp | null;
   deleted_at?: timestamptz_comparison_exp | null;
+  description?: String_comparison_exp | null;
   id?: uuid_comparison_exp | null;
   title?: String_comparison_exp | null;
   updated_at?: timestamptz_comparison_exp | null;
@@ -34,17 +35,6 @@ export type Boolean_comparison_exp = {
   _nin?: ReadonlyArray<boolean> | null;
 };
 export type timestamptz_comparison_exp = {
-  _eq?: string | null;
-  _gt?: string | null;
-  _gte?: string | null;
-  _in?: ReadonlyArray<string> | null;
-  _is_null?: boolean | null;
-  _lt?: string | null;
-  _lte?: string | null;
-  _neq?: string | null;
-  _nin?: ReadonlyArray<string> | null;
-};
-export type uuid_comparison_exp = {
   _eq?: string | null;
   _gt?: string | null;
   _gte?: string | null;
@@ -76,10 +66,22 @@ export type String_comparison_exp = {
   _regex?: string | null;
   _similar?: string | null;
 };
+export type uuid_comparison_exp = {
+  _eq?: string | null;
+  _gt?: string | null;
+  _gte?: string | null;
+  _in?: ReadonlyArray<string> | null;
+  _is_null?: boolean | null;
+  _lt?: string | null;
+  _lte?: string | null;
+  _neq?: string | null;
+  _nin?: ReadonlyArray<string> | null;
+};
 export type todo_order_by = {
   completed?: order_by | null;
   created_at?: order_by | null;
   deleted_at?: order_by | null;
+  description?: order_by | null;
   id?: order_by | null;
   title?: order_by | null;
   updated_at?: order_by | null;
@@ -217,13 +219,6 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "created_at",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
                     "name": "id",
                     "storageKey": null
                   },
@@ -232,13 +227,6 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "title",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "updated_at",
                     "storageKey": null
                   },
                   {
@@ -309,12 +297,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0978de3af6edafbab2aa62bf075912f9",
+    "cacheID": "05f7d7189dbb72b0b63b60cd25faf208",
     "id": null,
     "metadata": {},
     "name": "TodosListQuery",
     "operationKind": "query",
-    "text": "query TodosListQuery(\n  $where: todo_bool_exp\n  $order_by: [todo_order_by!]\n  $first: Int\n  $after: String\n) {\n  ...TodosPagination_list\n}\n\nfragment TodoCard on todo {\n  completed\n  created_at\n  id\n  title\n  updated_at\n}\n\nfragment TodosPagination_list on query_root {\n  todo_connection(where: $where, order_by: $order_by, first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...TodoCard\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query TodosListQuery(\n  $where: todo_bool_exp\n  $order_by: [todo_order_by!]\n  $first: Int\n  $after: String\n) {\n  ...TodosPagination_list\n}\n\nfragment TodosPagination_list on query_root {\n  todo_connection(where: $where, order_by: $order_by, first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        completed\n        id\n        title\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

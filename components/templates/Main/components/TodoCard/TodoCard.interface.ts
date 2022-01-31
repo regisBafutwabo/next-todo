@@ -3,6 +3,6 @@ import {
 } from 'config/relay/__generated__/TodosPagination_list.graphql';
 
 export type TodoCardProps = {
-    item: TodosPagination_list['todo_connection']['edges'][number]['node'];
-
+    todo: TodosPagination_list['todo_connection']['edges'][number]['node'];
+    onClick: (event:any,id:string) => void;
 }

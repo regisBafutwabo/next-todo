@@ -1,38 +1,62 @@
-import { TodoCard$key } from 'config/relay/__generated__/TodoCard.graphql';
-import { useFragment } from 'react-relay';
+import {
+  useCallback,
+  useState,
+} from 'react';
+
+import { useSnackbar } from 'notistack';
+import { TodoService } from 'services';
+import { validateUUID } from 'utils/validateUUID';
 
 import {
   Checkbox,
+  CircularProgress,
   ListItemButton,
   ListItemText,
 } from '@mui/material';
 
-import { TodoCardFragment } from '../../graphql/fragment/TodoCard.fragment';
 import { Container } from './styles';
 import { TodoCardProps } from './TodoCard.interface';
 
-export const TodoCard = ({item}: TodoCardProps) => {
-    const todo = useFragment<TodoCard$key>(TodoCardFragment, item);
+export const TodoCard = ({ todo, onClick }: TodoCardProps) => {
+  const { enqueueSnackbar } = useSnackbar();
 
-    const handleToggle=()=>{
+  const [loading, setLoading] = useState(false);
 
-    }
+  const handleToggle = useCallback(() => {
+    setLoading(true);
 
-    return (
-        <Container 
-            secondaryAction={
-                <Checkbox
-                    edge="end"
-                    onChange={handleToggle}
-                    checked={todo.completed}
-                    // inputProps={{ 'aria-labelledby': labelId }}
-                />
-            }
-            disablePadding
-        >
-            <ListItemButton>
-                <ListItemText primary={todo.title} />
-            </ListItemButton>
-        </Container>
-    );
+    TodoService.updateTodo({
+      variables: {
+        id: validateUUID(todo.id),
+        set: { completed: !todo.completed },
+      },
+      onCompleted: () => setLoading(false),
+      onError: (err) => {
+        enqueueSnackbar(err.message, { variant: "error" });
+        setLoading(false);
+      },
+    });
+  }, [enqueueSnackbar, todo]);
+
+  return (
+    <Container
+      disablePadding
+      secondaryAction={
+        loading ? (
+          <CircularProgress color="secondary" size="24px" />
+        ) : (
+          <Checkbox
+            edge="end"
+            onChange={handleToggle}
+            checked={todo.completed}
+            color="secondary"
+          />
+        )
+      }
+    >
+      <ListItemButton onClick={event => onClick(event,todo.id)}>
+        <ListItemText primary={todo.title} />
+      </ListItemButton>
+    </Container>
+  );
 };

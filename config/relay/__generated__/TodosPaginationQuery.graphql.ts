@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<334ccfb0aed8837015760bbc7e306bff>>
+ * @generated SignedSource<<2d33b116b5a0dcf30bb4d2294d2b88eb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type todo_order_by = {
   completed?: order_by | null;
   created_at?: order_by | null;
   deleted_at?: order_by | null;
+  description?: order_by | null;
   id?: order_by | null;
   title?: order_by | null;
   updated_at?: order_by | null;
@@ -26,6 +27,7 @@ export type todo_bool_exp = {
   completed?: Boolean_comparison_exp | null;
   created_at?: timestamptz_comparison_exp | null;
   deleted_at?: timestamptz_comparison_exp | null;
+  description?: String_comparison_exp | null;
   id?: uuid_comparison_exp | null;
   title?: String_comparison_exp | null;
   updated_at?: timestamptz_comparison_exp | null;
@@ -42,17 +44,6 @@ export type Boolean_comparison_exp = {
   _nin?: ReadonlyArray<boolean> | null;
 };
 export type timestamptz_comparison_exp = {
-  _eq?: string | null;
-  _gt?: string | null;
-  _gte?: string | null;
-  _in?: ReadonlyArray<string> | null;
-  _is_null?: boolean | null;
-  _lt?: string | null;
-  _lte?: string | null;
-  _neq?: string | null;
-  _nin?: ReadonlyArray<string> | null;
-};
-export type uuid_comparison_exp = {
   _eq?: string | null;
   _gt?: string | null;
   _gte?: string | null;
@@ -83,6 +74,17 @@ export type String_comparison_exp = {
   _nsimilar?: string | null;
   _regex?: string | null;
   _similar?: string | null;
+};
+export type uuid_comparison_exp = {
+  _eq?: string | null;
+  _gt?: string | null;
+  _gte?: string | null;
+  _in?: ReadonlyArray<string> | null;
+  _is_null?: boolean | null;
+  _lt?: string | null;
+  _lte?: string | null;
+  _neq?: string | null;
+  _nin?: ReadonlyArray<string> | null;
 };
 export type TodosPaginationQuery$variables = {
   after?: string | null;
@@ -209,13 +211,6 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "created_at",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
                     "name": "id",
                     "storageKey": null
                   },
@@ -224,13 +219,6 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "title",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "updated_at",
                     "storageKey": null
                   },
                   {
@@ -301,16 +289,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5e8516108c76c0505065ded828b6dc1f",
+    "cacheID": "533ef86e4b52ae7f5c6f0ba022b4adcf",
     "id": null,
     "metadata": {},
     "name": "TodosPaginationQuery",
     "operationKind": "query",
-    "text": "query TodosPaginationQuery(\n  $after: String\n  $first: Int\n  $order_by: [todo_order_by!]\n  $where: todo_bool_exp\n) {\n  ...TodosPagination_list\n}\n\nfragment TodoCard on todo {\n  completed\n  created_at\n  id\n  title\n  updated_at\n}\n\nfragment TodosPagination_list on query_root {\n  todo_connection(where: $where, order_by: $order_by, first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...TodoCard\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query TodosPaginationQuery(\n  $after: String\n  $first: Int\n  $order_by: [todo_order_by!]\n  $where: todo_bool_exp\n) {\n  ...TodosPagination_list\n}\n\nfragment TodosPagination_list on query_root {\n  todo_connection(where: $where, order_by: $order_by, first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        completed\n        id\n        title\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "be3263b46c1a4a53d60854dfc4b2f427";
+(node as any).hash = "0165bb113ad95e35d3469116eb356f55";
 
 export default node;

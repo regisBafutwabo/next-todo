@@ -253,6 +253,7 @@ type todo implements Node {
   completed: Boolean!
   created_at: timestamptz!
   deleted_at: timestamptz
+  description: String
   id: ID!
   title: String!
   updated_at: timestamptz
@@ -268,6 +269,7 @@ input todo_bool_exp {
   completed: Boolean_comparison_exp
   created_at: timestamptz_comparison_exp
   deleted_at: timestamptz_comparison_exp
+  description: String_comparison_exp
   id: uuid_comparison_exp
   title: String_comparison_exp
   updated_at: timestamptz_comparison_exp
@@ -288,6 +290,7 @@ input todo_insert_input {
   completed: Boolean
   created_at: timestamptz
   deleted_at: timestamptz
+  description: String
   id: uuid
   title: String
   updated_at: timestamptz
@@ -318,6 +321,7 @@ input todo_order_by {
   completed: order_by
   created_at: order_by
   deleted_at: order_by
+  description: order_by
   id: order_by
   title: order_by
   updated_at: order_by
@@ -342,6 +346,9 @@ enum todo_select_column {
   deleted_at
 
   """column name"""
+  description
+
+  """column name"""
   id
 
   """column name"""
@@ -358,6 +365,7 @@ input todo_set_input {
   completed: Boolean
   created_at: timestamptz
   deleted_at: timestamptz
+  description: String
   id: uuid
   title: String
   updated_at: timestamptz
@@ -375,6 +383,9 @@ enum todo_update_column {
 
   """column name"""
   deleted_at
+
+  """column name"""
+  description
 
   """column name"""
   id

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3141bb810df2cc7b92ce4e8f890ba010>>
+ * @generated SignedSource<<6b822b743c26919973974acc9c90a7c5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,9 @@ export type TodosPagination_list$data = {
     readonly edges: ReadonlyArray<{
       readonly cursor: string;
       readonly node: {
-        readonly " $fragmentSpreads": FragmentRefs<"TodoCard">;
+        readonly completed: boolean;
+        readonly id: string;
+        readonly title: string;
       };
     }>;
   };
@@ -119,9 +121,25 @@ return {
               "plural": false,
               "selections": [
                 {
+                  "alias": null,
                   "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "TodoCard"
+                  "kind": "ScalarField",
+                  "name": "completed",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "id",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "title",
+                  "storageKey": null
                 },
                 {
                   "alias": null,
@@ -182,6 +200,6 @@ return {
 };
 })();
 
-(node as any).hash = "be3263b46c1a4a53d60854dfc4b2f427";
+(node as any).hash = "0165bb113ad95e35d3469116eb356f55";
 
 export default node;

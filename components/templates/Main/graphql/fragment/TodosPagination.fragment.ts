@@ -7,7 +7,9 @@ export const TodosPaginationFragment = graphql`
       edges {
         cursor
         node {
-          ...TodoCard
+          completed
+          id
+          title
         }
       }
     }
