@@ -2155,10 +2155,10 @@ regexpp@^3.2.0:
   resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-3.2.0.tgz#0425a2768d8f23bad70ca4b90461fa2f1213e1b2"
   integrity sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==
 
-relay-compiler@^13.0.1:
-  version "13.0.1"
-  resolved "https://registry.yarnpkg.com/relay-compiler/-/relay-compiler-13.0.1.tgz#09c713647aa7e1d8cf3de9f7fb4ee6a76b32cf26"
-  integrity sha512-C/qJ7IdfZ140b9JaNpuAP6WhV/Odt/tIq4sUZoTwsaOlhs+1Zu3fvIOoWKTnZT5PC6krRuw1hD7GSX6/paVpTQ==
+relay-compiler@^13.0.2:
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/relay-compiler/-/relay-compiler-13.0.2.tgz#2ec086bcc55ac8cb94cc08a19be129e037ca8044"
+  integrity sha512-Gg/5FNj8gz03GRkG5KjMNpDB4nOeApDFZq+8CZehu3KkQQ+vNIurX6RiTY3UNUYvg5SX2A9DS5bq5iHJ8iEV3A==
 
 relay-runtime@13.0.1, relay-runtime@^13.0.1:
   version "13.0.1"
