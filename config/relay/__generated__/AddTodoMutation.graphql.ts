@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3dd781ee36a4b63c13c54c732cf16b13>>
+ * @generated SignedSource<<c6c581b793859d57fce58bfe8d922445>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type todo_set_input = {
+export type todo_insert_input = {
   completed?: boolean | null;
   created_at?: string | null;
   deleted_at?: string | null;
@@ -18,26 +18,25 @@ export type todo_set_input = {
   title?: string | null;
   updated_at?: string | null;
 };
-export type UpdateTodoMutation$variables = {
-  id: string;
-  set?: todo_set_input | null;
+export type AddTodoMutation$variables = {
+  object: todo_insert_input;
 };
-export type UpdateTodoMutationVariables = UpdateTodoMutation$variables;
-export type UpdateTodoMutation$data = {
-  readonly update_todo_by_pk: {
-    readonly id: string;
+export type AddTodoMutationVariables = AddTodoMutation$variables;
+export type AddTodoMutation$data = {
+  readonly insert_todo_one: {
     readonly completed: boolean;
     readonly created_at: string;
-    readonly title: string;
     readonly description: string | null;
+    readonly id: string;
+    readonly title: string;
     readonly updated_at: string | null;
     readonly deleted_at: string | null;
   } | null;
 };
-export type UpdateTodoMutationResponse = UpdateTodoMutation$data;
-export type UpdateTodoMutation = {
-  variables: UpdateTodoMutationVariables;
-  response: UpdateTodoMutation$data;
+export type AddTodoMutationResponse = AddTodoMutation$data;
+export type AddTodoMutation = {
+  variables: AddTodoMutationVariables;
+  response: AddTodoMutation$data;
 };
 
 const node: ConcreteRequest = (function(){
@@ -45,12 +44,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "id"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "set"
+    "name": "object"
   }
 ],
 v1 = [
@@ -59,33 +53,15 @@ v1 = [
     "args": [
       {
         "kind": "Variable",
-        "name": "_set",
-        "variableName": "set"
-      },
-      {
-        "fields": [
-          {
-            "kind": "Variable",
-            "name": "id",
-            "variableName": "id"
-          }
-        ],
-        "kind": "ObjectValue",
-        "name": "pk_columns"
+        "name": "object",
+        "variableName": "object"
       }
     ],
     "concreteType": "todo",
     "kind": "LinkedField",
-    "name": "update_todo_by_pk",
+    "name": "insert_todo_one",
     "plural": false,
     "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
       {
         "alias": null,
         "args": null,
@@ -104,14 +80,21 @@ v1 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "title",
+        "name": "description",
         "storageKey": null
       },
       {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "description",
+        "name": "id",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "title",
         "storageKey": null
       },
       {
@@ -137,7 +120,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "UpdateTodoMutation",
+    "name": "AddTodoMutation",
     "selections": (v1/*: any*/),
     "type": "mutation_root",
     "abstractKey": null
@@ -146,20 +129,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "UpdateTodoMutation",
+    "name": "AddTodoMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "858ce5f4679c485d6faa4a1fc2030697",
+    "cacheID": "8590524e47b9ab7e16c435c7398af8c5",
     "id": null,
     "metadata": {},
-    "name": "UpdateTodoMutation",
+    "name": "AddTodoMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateTodoMutation(\n  $id: uuid!\n  $set: todo_set_input\n) {\n  update_todo_by_pk(pk_columns: {id: $id}, _set: $set) {\n    id\n    completed\n    created_at\n    title\n    description\n    updated_at\n    deleted_at\n  }\n}\n"
+    "text": "mutation AddTodoMutation(\n  $object: todo_insert_input!\n) {\n  insert_todo_one(object: $object) {\n    completed\n    created_at\n    description\n    id\n    title\n    updated_at\n    deleted_at\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e4d2673e32d891fc96ee40a40e71ad63";
+(node as any).hash = "6aad63ce5660498c4168e2f2ebfc5b12";
 
 export default node;

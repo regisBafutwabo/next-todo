@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6b822b743c26919973974acc9c90a7c5>>
+ * @generated SignedSource<<3a6fd8ba1b005dccfba74ebe61e3edea>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,10 @@ export type TodosPagination_list$data = {
         readonly completed: boolean;
         readonly id: string;
         readonly title: string;
+        readonly deleted_at: string | null;
+        readonly updated_at: string | null;
+        readonly created_at: string;
+        readonly description: string | null;
       };
     }>;
   };
@@ -145,6 +149,34 @@ return {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
+                  "name": "deleted_at",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "updated_at",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "created_at",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "description",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
                   "name": "__typename",
                   "storageKey": null
                 }
@@ -200,6 +232,6 @@ return {
 };
 })();
 
-(node as any).hash = "0165bb113ad95e35d3469116eb356f55";
+(node as any).hash = "b166021e4d2f4d49050bfd46b48eb328";
 
 export default node;

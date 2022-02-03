@@ -1,6 +1,9 @@
-import { styled } from "@mui/material";
+import {
+  Box,
+  styled,
+} from "@mui/material";
 
-export const ContainerForm = styled("form")(() => ({
+export const ContainerForm = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
 }));

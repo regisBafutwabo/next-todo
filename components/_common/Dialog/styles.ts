@@ -5,11 +5,14 @@ import {
   styled,
 } from "@mui/material";
 
-export const Container = styled(Dialog)(({ theme: { breakpoints } }) => ({
-  // minWidth:500
+import { ContainerType } from "./Dialog.interface";
+
+export const Container = styled(Dialog, {
+  shouldForwardProp: (prop: string) => prop !== "width" && prop !== "height",
+})<ContainerType>(({ theme: { breakpoints }, width, height }) => ({
   "& .MuiPaper-root": {
-    minWidth: 700,
-    minHeight: 500,
+    minWidth: width || 700,
+    minHeight: height || 500,
     [breakpoints.down("sm")]: {
       minWidth: "100%",
       minHeight: "100%",

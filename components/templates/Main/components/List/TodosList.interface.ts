@@ -1,7 +1,14 @@
 import {
-  TodosListQuery$data,
-} from 'config/relay/__generated__/TodosListQuery.graphql';
+  TodosPagination_list$data,
+} from "config/relay/__generated__/TodosPagination_list.graphql";
+import {
+  TodosPaginationQuery,
+} from "config/relay/__generated__/TodosPaginationQuery.graphql";
+import { LoadMoreFn } from "react-relay";
 
 export type TodosListProps = {
-    node: TodosListQuery$data;
-}
+  data: TodosPagination_list$data;
+  hasNext: boolean;
+  loadNext: LoadMoreFn<TodosPaginationQuery>;
+  isLoadingNext: boolean;
+};

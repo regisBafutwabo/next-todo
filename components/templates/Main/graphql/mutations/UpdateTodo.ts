@@ -1,15 +1,15 @@
-import { graphql } from 'relay-runtime';
+import { graphql } from "relay-runtime";
 
 export const UpdateTodo = graphql`
-    mutation UpdateTodoMutation($id:uuid!,$set: todo_set_input) {
-        update_todo(where: {id: {_eq: $id}}, _set: $set) {
-            returning {
-                completed
-                created_at
-                updated_at
-                title
-                id
-            }
-        }
+  mutation UpdateTodoMutation($id: uuid!, $set: todo_set_input) {
+    update_todo_by_pk(pk_columns: { id: $id }, _set: $set) {
+      id
+      completed
+      created_at
+      title
+      description
+      updated_at
+      deleted_at
     }
+  }
 `;

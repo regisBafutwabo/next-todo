@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a452f12a45c0ab9a4718c01225d83b40>>
+ * @generated SignedSource<<2066cd21e7667a377f6b11b59efdc631>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -233,6 +233,34 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "deleted_at",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "updated_at",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "created_at",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "description",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "__typename",
                     "storageKey": null
                   }
@@ -297,12 +325,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "05f7d7189dbb72b0b63b60cd25faf208",
+    "cacheID": "8ed1591e922d4d1e7f27153c1e3c789f",
     "id": null,
     "metadata": {},
     "name": "TodosListQuery",
     "operationKind": "query",
-    "text": "query TodosListQuery(\n  $where: todo_bool_exp\n  $order_by: [todo_order_by!]\n  $first: Int\n  $after: String\n) {\n  ...TodosPagination_list\n}\n\nfragment TodosPagination_list on query_root {\n  todo_connection(where: $where, order_by: $order_by, first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        completed\n        id\n        title\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query TodosListQuery(\n  $where: todo_bool_exp\n  $order_by: [todo_order_by!]\n  $first: Int\n  $after: String\n) {\n  ...TodosPagination_list\n}\n\nfragment TodosPagination_list on query_root {\n  todo_connection(where: $where, order_by: $order_by, first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        completed\n        id\n        title\n        deleted_at\n        updated_at\n        created_at\n        description\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

@@ -14,7 +14,7 @@
     "prettier"
   ],
   "plugins": [
-    "@typescript-eslint",
+    // "@typescript-eslint",
     "prettier"
   ],
   "parserOptions": {
@@ -26,6 +26,10 @@
     "import/no-extraneous-dependencies": "off",
     "react/function-component-definition": "off",
     "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "no-underscore-dangle":"off",
+    "no-alert":"off",
     "react/jsx-filename-extension": [
       1,
       {

@@ -13,13 +13,39 @@ import {
 } from "./styles";
 
 export const DialogComponent = (props: DialogComponentProps) => {
+  const {
+    onClose,
+    open,
+    title,
+    children,
+    disableBackdropClick,
+    width,
+    height,
+  } = props;
+
   const { breakpoints, palette } = useTheme();
   const mobile = useMediaQuery(breakpoints.down("sm"));
 
-  const { onClose, open, title, children } = props;
+  const handleClose = (_: any, reason: "backdropClick" | "escapeKeyDown") => {
+    if (disableBackdropClick && reason === "backdropClick") {
+      return false;
+    }
+
+    if (typeof onClose === "function") {
+      onClose();
+      return true;
+    }
+    return false;
+  };
 
   return (
-    <Container onClose={onClose} open={open} fullScreen={mobile}>
+    <Container
+      onClose={handleClose}
+      open={open}
+      fullScreen={mobile}
+      width={width}
+      height={height}
+    >
       <DialogTitle>
         <TitleContainer>
           {title}

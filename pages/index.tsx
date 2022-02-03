@@ -28,7 +28,7 @@ const Home: NextPage = () => {
     todoListLoadQuery({
       first: 5,
       where: { deleted_at: { _is_null: true } },
-      order_by: [{ created_at: "desc" }],
+      order_by: [{ completed: "asc" }, { created_at: "desc" }],
     });
   }, [todoListLoadQuery]);
 

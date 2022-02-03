@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 import {
@@ -10,7 +11,13 @@ export default function Custom500() {
 
   return (
     <Box sx={{ maxWidth: 500 }} marginX="auto" marginY={4}>
-      <img src="/assets/oops.png" alt="oops!" style={{ width: "100%" }} />
+      <Image
+        src="/assets/oops.png"
+        alt="oops!"
+        width={500}
+        height={500}
+        layout="responsive"
+      />
 
       {process.env.NODE_ENV === "development" ? (
         <>

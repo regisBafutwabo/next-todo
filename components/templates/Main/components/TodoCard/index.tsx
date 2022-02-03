@@ -1,21 +1,21 @@
 import {
   useCallback,
   useState,
-} from 'react';
+} from "react";
 
-import { useSnackbar } from 'notistack';
-import { TodoService } from 'services';
-import { validateUUID } from 'utils/validateUUID';
+import { useSnackbar } from "notistack";
+import { TodoService } from "services";
+import { validateUUID } from "utils/validateUUID";
 
 import {
   Checkbox,
   CircularProgress,
   ListItemButton,
   ListItemText,
-} from '@mui/material';
+} from "@mui/material";
 
-import { Container } from './styles';
-import { TodoCardProps } from './TodoCard.interface';
+import { Container } from "./styles";
+import { TodoCardProps } from "./TodoCard.interface";
 
 export const TodoCard = ({ todo, onClick }: TodoCardProps) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -28,7 +28,9 @@ export const TodoCard = ({ todo, onClick }: TodoCardProps) => {
     TodoService.updateTodo({
       variables: {
         id: validateUUID(todo.id),
-        set: { completed: !todo.completed },
+        set: {
+          completed: !todo.completed,
+        },
       },
       onCompleted: () => setLoading(false),
       onError: (err) => {
@@ -41,6 +43,7 @@ export const TodoCard = ({ todo, onClick }: TodoCardProps) => {
   return (
     <Container
       disablePadding
+      completed={todo.completed ? 1 : 0}
       secondaryAction={
         loading ? (
           <CircularProgress color="secondary" size="24px" />
@@ -54,7 +57,7 @@ export const TodoCard = ({ todo, onClick }: TodoCardProps) => {
         )
       }
     >
-      <ListItemButton onClick={event => onClick(event,todo.id)}>
+      <ListItemButton onClick={(event) => onClick(event, todo.id)}>
         <ListItemText primary={todo.title} />
       </ListItemButton>
     </Container>

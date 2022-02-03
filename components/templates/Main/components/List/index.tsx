@@ -1,17 +1,12 @@
 import {
-  TodosPagination_list$key,
-} from "config/relay/__generated__/TodosPagination_list.graphql";
-import {
-  TodosPaginationQuery,
-} from "config/relay/__generated__/TodosPaginationQuery.graphql";
+  MouseEvent,
+  useCallback,
+} from "react";
+
 import { useRouter } from "next/router";
-import { usePaginationFragment } from "react-relay";
 
 import { CircularProgress } from "@mui/material";
 
-import {
-  TodosPaginationFragment,
-} from "../../graphql/fragment/TodosPagination.fragment";
 import { TodoCard } from "../TodoCard";
 import {
   ButtonContainer,
@@ -21,22 +16,21 @@ import {
 import { TodosListProps } from "./TodosList.interface";
 
 export const List = (props: TodosListProps) => {
-  const { node } = props;
+  const { data, hasNext, isLoadingNext, loadNext } = props;
   const { push } = useRouter();
 
-  const { data, hasNext, loadNext, isLoadingNext } = usePaginationFragment<
-    TodosPaginationQuery,
-    TodosPagination_list$key
-  >(TodosPaginationFragment, node);
-
   const lists = data?.todo_connection?.edges;
+  const connectionId = data?.todo_connection?.__id;
 
-  const onClick = async (event: any, id: string) => {
-    event.preventDefault();
-    await push({ query: { id } });
-  };
+  const onClick = useCallback(
+    () => async (event: MouseEvent<HTMLDivElement>, id: string) => {
+      event.preventDefault();
+      await push({ query: { id } });
+    },
+    [push]
+  );
 
-  const BottomAction = () => {
+  const BottomAction = useCallback(() => {
     if (hasNext) {
       return (
         <ButtonContainer>
@@ -46,17 +40,21 @@ export const List = (props: TodosListProps) => {
     }
     if (isLoadingNext) {
       return <CircularProgress color="secondary" />;
-    } 
-      return undefined;
-    
-  };
+    }
+    return undefined;
+  }, [hasNext, isLoadingNext, loadNext]);
 
   return (
     <>
       <Container dense>
         {lists &&
           lists.map((item) => (
-            <TodoCard onClick={onClick} todo={item.node} key={item.cursor} />
+            <TodoCard
+              connectionId={connectionId}
+              onClick={onClick}
+              todo={item.node}
+              key={item.cursor}
+            />
           ))}
       </Container>
       {BottomAction()}

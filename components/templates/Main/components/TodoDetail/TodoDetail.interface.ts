@@ -1,4 +1,3 @@
-
 export type TodoDetailProps = {
-    idExist:boolean;
-}
+  connectionId?: string;
+};

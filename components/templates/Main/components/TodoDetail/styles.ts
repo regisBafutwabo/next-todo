@@ -61,6 +61,7 @@ export const UpdatedAtContainer = styled(CreatedAtContainer)(() => ({}));
 export const EditButton = styled(Button)(({ theme: { palette } }) => ({
   backgroundColor: palette.error.main,
   color: palette.background.default,
+  border: `1px solid transparent`,
   ":hover": {
     backgroundColor: "transparent",
     color: palette.error.main,
@@ -71,6 +72,7 @@ export const EditButton = styled(Button)(({ theme: { palette } }) => ({
 export const DeleteButton = styled(Button)(({ theme: { palette } }) => ({
   backgroundColor: palette.secondary.main,
   color: palette.background.default,
+  border: `1px solid transparent`,
   ":hover": {
     backgroundColor: "transparent",
     color: palette.secondary.main,
@@ -81,6 +83,7 @@ export const DeleteButton = styled(Button)(({ theme: { palette } }) => ({
 export const SaveButton = styled(Button)(({ theme: { palette } }) => ({
   backgroundColor: palette.info.main,
   color: palette.background.default,
+  border: `1px solid transparent`,
   ":hover": {
     backgroundColor: "transparent",
     color: palette.info.main,
