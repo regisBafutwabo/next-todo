@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "yarn && yarn run relay && next dev",
-    "build": "yarn add -D typescript && yarn && yarn run relay && next build",
+    "build": "yarn add -D typescript @types/node && yarn && yarn run relay && next build",
     "start": "yarn && yarn run relay && next start",
     "lint": "next lint",
     "relay": "yarn run relay-compiler",
