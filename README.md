@@ -8,6 +8,7 @@ The features that are included are:
 - [x] Update a Todo
 - [x] Delete a todo
 - [x] Responsiveness
+- [ ] Connection to Blockchain
 
 Tech used:
 - [x] NextJs
