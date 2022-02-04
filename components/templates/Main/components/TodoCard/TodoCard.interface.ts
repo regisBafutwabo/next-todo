@@ -6,7 +6,7 @@ import { ListItemBaseProps } from "@mui/material";
 
 export type TodoCardProps = {
   todo: TodosPagination_list["todo_connection"]["edges"][number]["node"];
-  onClick: (event: any, id: string) => void;
+  onClick: (id: string) => Promise<void>;
   connectionId: string;
 };
 

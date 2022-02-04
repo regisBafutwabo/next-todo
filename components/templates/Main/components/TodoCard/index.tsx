@@ -57,7 +57,12 @@ export const TodoCard = ({ todo, onClick }: TodoCardProps) => {
         )
       }
     >
-      <ListItemButton onClick={(event) => onClick(event, todo.id)}>
+      <ListItemButton
+        onClick={async (event) => {
+          event.preventDefault();
+          await onClick(todo.id);
+        }}
+      >
         <ListItemText primary={todo.title} />
       </ListItemButton>
     </Container>
