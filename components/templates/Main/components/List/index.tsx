@@ -1,7 +1,4 @@
-import {
-  MouseEvent,
-  useCallback,
-} from "react";
+import { useCallback } from "react";
 
 import { useRouter } from "next/router";
 
@@ -22,13 +19,10 @@ export const List = (props: TodosListProps) => {
   const lists = data?.todo_connection?.edges;
   const connectionId = data?.todo_connection?.__id;
 
-  const onClick = useCallback(
-    () => async (event: MouseEvent<HTMLDivElement>, id: string) => {
-      event.preventDefault();
-      await push({ query: { id } });
-    },
-    [push]
-  );
+  const onClick = async (id: string) => {
+    console.log("here");
+    await push({ query: { id } });
+  };
 
   const BottomAction = useCallback(() => {
     if (hasNext) {
