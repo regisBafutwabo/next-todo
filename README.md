@@ -13,7 +13,7 @@ The features that are included are:
 Tech used:
 - [x] NextJs
 - [x] Relayjs
-- [x] Hasura for DB and API
+- [x] Hasura for DB and API (https://github.com/regisBafutwabo/next-todo-hasura)
 - [x] Yup for form schema validation
 - [x] React-hook-form for forms
 - [ ] Cypress + Cucumber for BDD
