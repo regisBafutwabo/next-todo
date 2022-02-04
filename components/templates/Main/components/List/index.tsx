@@ -20,7 +20,6 @@ export const List = (props: TodosListProps) => {
   const connectionId = data?.todo_connection?.__id;
 
   const onClick = async (id: string) => {
-    console.log("here");
     await push({ query: { id } });
   };
 

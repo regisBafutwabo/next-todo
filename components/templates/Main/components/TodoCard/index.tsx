@@ -60,7 +60,6 @@ export const TodoCard = ({ todo, onClick }: TodoCardProps) => {
       <ListItemButton
         onClick={async (event) => {
           event.preventDefault();
-          console.log("object");
           await onClick(todo.id);
         }}
       >
