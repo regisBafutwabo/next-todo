@@ -21,7 +21,6 @@ import {
   usePaginationFragment,
   usePreloadedQuery,
 } from "react-relay";
-import { getId } from "utils/accessToken";
 
 import AddIcon from "@mui/icons-material/Add";
 import { Fab } from "@mui/material";
@@ -49,7 +48,7 @@ export const Main = (props: MainProps) => {
   const [openAdd, setOpenAdd] = useState(false);
   const [queryArgs, setQueryArgs] = useState<QueryArgsType>({
     options: { fetchKey: 0, fetchPolicy: "network-only" },
-    variables: { id: getId() },
+    // variables: { id: getId() },
   });
 
   const node = usePreloadedQuery<TodosListQuery>(TodosList, todoListQueryRef);
@@ -62,7 +61,7 @@ export const Main = (props: MainProps) => {
     users_connection: { edges },
   } = useLazyLoadQuery<TodoAggregateQuery>(
     TodoAggregate,
-    queryArgs.variables,
+    {},
     queryArgs.options
   );
 
@@ -78,7 +77,6 @@ export const Main = (props: MainProps) => {
         ...prev.options,
         fetchKey: (prev.options.fetchKey ?? 0) + 1,
       },
-      variables: { id: getId() },
     }));
   };
 

@@ -12,9 +12,6 @@ import {
   ButtonContainer,
   Container,
   LoadMoreButton,
-  Progress,
-  ProgressContainer,
-  ProgressDetail,
 } from "./styles";
 import { TodosListProps } from "./TodosList.interface";
 
@@ -47,7 +44,7 @@ export const List = (props: TodosListProps) => {
   return (
     <>
       <Container dense>
-        <ProgressContainer>
+        {/* <ProgressContainer>
           <Progress
             variant="determinate"
             value={
@@ -56,7 +53,7 @@ export const List = (props: TodosListProps) => {
             color="secondary"
           />
           <ProgressDetail>{`${completed}/${count}`}</ProgressDetail>
-        </ProgressContainer>
+        </ProgressContainer> */}
 
         {lists &&
           lists.map((item) => (
