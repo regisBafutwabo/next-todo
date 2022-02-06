@@ -17,7 +17,7 @@ import {
 import { Container } from "./styles";
 import { TodoCardProps } from "./TodoCard.interface";
 
-export const TodoCard = ({ todo, onClick }: TodoCardProps) => {
+export const TodoCard = ({ todo, onClick, onUpdate }: TodoCardProps) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [loading, setLoading] = useState(false);
@@ -32,13 +32,16 @@ export const TodoCard = ({ todo, onClick }: TodoCardProps) => {
           completed: !todo.completed,
         },
       },
-      onCompleted: () => setLoading(false),
+      onCompleted: () => {
+        setLoading(false);
+        onUpdate();
+      },
       onError: (err) => {
         enqueueSnackbar(err.message, { variant: "error" });
         setLoading(false);
       },
     });
-  }, [enqueueSnackbar, todo]);
+  }, [enqueueSnackbar, todo, onUpdate]);
 
   return (
     <Container

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3dd781ee36a4b63c13c54c732cf16b13>>
+ * @generated SignedSource<<4a7c92fae28c3e45e44a2b6ec3c4dbf8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,7 @@ export type todo_set_input = {
   id?: string | null;
   title?: string | null;
   updated_at?: string | null;
+  user_id?: string | null;
 };
 export type UpdateTodoMutation$variables = {
   id: string;

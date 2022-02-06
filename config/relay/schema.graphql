@@ -44,6 +44,19 @@ type mutation_root {
   delete_todo_by_pk(id: uuid!): todo
 
   """
+  delete data from the table: "users"
+  """
+  delete_users(
+    """filter the rows which have to be deleted"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  delete single row from the table: "users"
+  """
+  delete_users_by_pk(id: uuid!): users
+
+  """
   insert data into the table: "todo"
   """
   insert_todo(
@@ -66,6 +79,28 @@ type mutation_root {
   ): todo
 
   """
+  insert data into the table: "users"
+  """
+  insert_users(
+    """the rows to be inserted"""
+    objects: [users_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: users_on_conflict
+  ): users_mutation_response
+
+  """
+  insert a single row into the table: "users"
+  """
+  insert_users_one(
+    """the row to be inserted"""
+    object: users_insert_input!
+
+    """on conflict condition"""
+    on_conflict: users_on_conflict
+  ): users
+
+  """
   update data of the table: "todo"
   """
   update_todo(
@@ -84,6 +119,26 @@ type mutation_root {
     _set: todo_set_input
     pk_columns: todo_pk_columns_input!
   ): todo
+
+  """
+  update data of the table: "users"
+  """
+  update_users(
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_set_input
+
+    """filter the rows which have to be updated"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  update single row of the table: "users"
+  """
+  update_users_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_set_input
+    pk_columns: users_pk_columns_input!
+  ): users
 }
 
 """An object with globally unique ID"""
@@ -144,6 +199,25 @@ type query_root {
     """filter the rows returned"""
     where: todo_bool_exp
   ): todoConnection!
+
+  """
+  fetch data from the table: "users"
+  """
+  users_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): usersConnection!
 }
 
 """
@@ -223,6 +297,25 @@ type subscription_root {
     """filter the rows returned"""
     where: todo_bool_exp
   ): todoConnection!
+
+  """
+  fetch data from the table: "users"
+  """
+  users_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): usersConnection!
 }
 
 scalar timestamptz
@@ -257,6 +350,46 @@ type todo implements Node {
   id: ID!
   title: String!
   updated_at: timestamptz
+
+  """An object relationship"""
+  user: users
+  user_id: uuid
+}
+
+"""
+aggregated selection of "todo"
+"""
+type todo_aggregate {
+  aggregate: todo_aggregate_fields
+  nodes: [todo!]!
+}
+
+"""
+aggregate fields of "todo"
+"""
+type todo_aggregate_fields {
+  count(columns: [todo_select_column!], distinct: Boolean): Int!
+  max: todo_max_fields
+  min: todo_min_fields
+}
+
+"""
+order by aggregate values of table "todo"
+"""
+input todo_aggregate_order_by {
+  count: order_by
+  max: todo_max_order_by
+  min: todo_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "todo"
+"""
+input todo_arr_rel_insert_input {
+  data: [todo_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: todo_on_conflict
 }
 
 """
@@ -273,6 +406,8 @@ input todo_bool_exp {
   id: uuid_comparison_exp
   title: String_comparison_exp
   updated_at: timestamptz_comparison_exp
+  user: users_bool_exp
+  user_id: uuid_comparison_exp
 }
 
 """
@@ -294,6 +429,56 @@ input todo_insert_input {
   id: uuid
   title: String
   updated_at: timestamptz
+  user: users_obj_rel_insert_input
+  user_id: uuid
+}
+
+"""aggregate max on columns"""
+type todo_max_fields {
+  created_at: timestamptz
+  deleted_at: timestamptz
+  description: String
+  id: uuid
+  title: String
+  updated_at: timestamptz
+  user_id: uuid
+}
+
+"""
+order by max() on columns of table "todo"
+"""
+input todo_max_order_by {
+  created_at: order_by
+  deleted_at: order_by
+  description: order_by
+  id: order_by
+  title: order_by
+  updated_at: order_by
+  user_id: order_by
+}
+
+"""aggregate min on columns"""
+type todo_min_fields {
+  created_at: timestamptz
+  deleted_at: timestamptz
+  description: String
+  id: uuid
+  title: String
+  updated_at: timestamptz
+  user_id: uuid
+}
+
+"""
+order by min() on columns of table "todo"
+"""
+input todo_min_order_by {
+  created_at: order_by
+  deleted_at: order_by
+  description: order_by
+  id: order_by
+  title: order_by
+  updated_at: order_by
+  user_id: order_by
 }
 
 """
@@ -325,6 +510,8 @@ input todo_order_by {
   id: order_by
   title: order_by
   updated_at: order_by
+  user: users_order_by
+  user_id: order_by
 }
 
 """primary key columns input for table: todo"""
@@ -356,6 +543,9 @@ enum todo_select_column {
 
   """column name"""
   updated_at
+
+  """column name"""
+  user_id
 }
 
 """
@@ -369,6 +559,7 @@ input todo_set_input {
   id: uuid
   title: String
   updated_at: timestamptz
+  user_id: uuid
 }
 
 """
@@ -395,6 +586,9 @@ enum todo_update_column {
 
   """column name"""
   updated_at
+
+  """column name"""
+  user_id
 }
 
 """
@@ -408,6 +602,231 @@ type todoConnection {
 type todoEdge {
   cursor: String!
   node: todo!
+}
+
+"""
+columns and relationships of "users"
+"""
+type users implements Node {
+  auth0_id: String!
+  email: String
+  id: ID!
+  name: String!
+  password: String
+  picture: String
+
+  """An array relationship"""
+  todos(
+    """distinct select on columns"""
+    distinct_on: [todo_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [todo_order_by!]
+
+    """filter the rows returned"""
+    where: todo_bool_exp
+  ): [todo!]!
+
+  """An aggregate relationship"""
+  todos_aggregate(
+    """distinct select on columns"""
+    distinct_on: [todo_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [todo_order_by!]
+
+    """filter the rows returned"""
+    where: todo_bool_exp
+  ): todo_aggregate!
+
+  """An array relationship connection"""
+  todos_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [todo_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [todo_order_by!]
+
+    """filter the rows returned"""
+    where: todo_bool_exp
+  ): todoConnection!
+}
+
+"""
+Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
+"""
+input users_bool_exp {
+  _and: [users_bool_exp!]
+  _not: users_bool_exp
+  _or: [users_bool_exp!]
+  auth0_id: String_comparison_exp
+  email: String_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  password: String_comparison_exp
+  picture: String_comparison_exp
+  todos: todo_bool_exp
+}
+
+"""
+unique or primary key constraints on table "users"
+"""
+enum users_constraint {
+  """unique or primary key constraint"""
+  users_auth0_id_key
+
+  """unique or primary key constraint"""
+  users_email_key
+
+  """unique or primary key constraint"""
+  users_pkey
+}
+
+"""
+input type for inserting data into table "users"
+"""
+input users_insert_input {
+  auth0_id: String
+  email: String
+  id: uuid
+  name: String
+  password: String
+  picture: String
+  todos: todo_arr_rel_insert_input
+}
+
+"""
+response of any mutation on the table "users"
+"""
+type users_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [users!]!
+}
+
+"""
+input type for inserting object relation for remote table "users"
+"""
+input users_obj_rel_insert_input {
+  data: users_insert_input!
+
+  """on conflict condition"""
+  on_conflict: users_on_conflict
+}
+
+"""
+on conflict condition type for table "users"
+"""
+input users_on_conflict {
+  constraint: users_constraint!
+  update_columns: [users_update_column!]! = []
+  where: users_bool_exp
+}
+
+"""Ordering options when selecting data from "users"."""
+input users_order_by {
+  auth0_id: order_by
+  email: order_by
+  id: order_by
+  name: order_by
+  password: order_by
+  picture: order_by
+  todos_aggregate: todo_aggregate_order_by
+}
+
+"""primary key columns input for table: users"""
+input users_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "users"
+"""
+enum users_select_column {
+  """column name"""
+  auth0_id
+
+  """column name"""
+  email
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  password
+
+  """column name"""
+  picture
+}
+
+"""
+input type for updating data in table "users"
+"""
+input users_set_input {
+  auth0_id: String
+  email: String
+  id: uuid
+  name: String
+  password: String
+  picture: String
+}
+
+"""
+update columns of table "users"
+"""
+enum users_update_column {
+  """column name"""
+  auth0_id
+
+  """column name"""
+  email
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  password
+
+  """column name"""
+  picture
+}
+
+"""
+A Relay connection object on "users"
+"""
+type usersConnection {
+  edges: [usersEdge!]!
+  pageInfo: PageInfo!
+}
+
+type usersEdge {
+  cursor: String!
+  node: users!
 }
 
 scalar uuid

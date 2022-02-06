@@ -1,5 +1,11 @@
-import { useState } from "react";
+import {
+  useMemo,
+  useState,
+} from "react";
 
+import {
+  TodoAggregateQuery,
+} from "config/relay/__generated__/TodoAggregateQuery.graphql";
 import {
   TodosListQuery,
 } from "config/relay/__generated__/TodosListQuery.graphql";
@@ -11,9 +17,11 @@ import {
 } from "config/relay/__generated__/TodosPaginationQuery.graphql";
 import { useRouter } from "next/router";
 import {
+  useLazyLoadQuery,
   usePaginationFragment,
   usePreloadedQuery,
 } from "react-relay";
+import { getId } from "utils/accessToken";
 
 import AddIcon from "@mui/icons-material/Add";
 import { Fab } from "@mui/material";
@@ -26,20 +34,53 @@ import { AddCard } from "./components/AddCard";
 import {
   TodosPaginationFragment,
 } from "./graphql/fragment/TodosPagination.fragment";
+import { TodoAggregate } from "./graphql/queries/TodoAggregate.query";
 import { TodosList } from "./graphql/queries/TodosList.query";
-import { MainProps } from "./Main.interface";
+import {
+  MainProps,
+  QueryArgsType,
+} from "./Main.interface";
 import { Container } from "./styles";
 
 export const Main = (props: MainProps) => {
-  const { query } = useRouter();
-  const [openAdd, setOpenAdd] = useState(false);
   const { todoListQueryRef } = props;
+  const { query } = useRouter();
+
+  const [openAdd, setOpenAdd] = useState(false);
+  const [queryArgs, setQueryArgs] = useState<QueryArgsType>({
+    options: { fetchKey: 0, fetchPolicy: "network-only" },
+    variables: { id: getId() },
+  });
 
   const node = usePreloadedQuery<TodosListQuery>(TodosList, todoListQueryRef);
   const { data, hasNext, loadNext, isLoadingNext } = usePaginationFragment<
     TodosPaginationQuery,
     TodosPagination_list$key
   >(TodosPaginationFragment, node);
+
+  const {
+    users_connection: { edges },
+  } = useLazyLoadQuery<TodoAggregateQuery>(
+    TodoAggregate,
+    queryArgs.variables,
+    queryArgs.options
+  );
+
+  const count = useMemo(() => edges[0].node.allTodos.aggregate?.count, [edges]);
+  const completed = useMemo(
+    () => edges[0].node.completed.aggregate?.count,
+    [edges]
+  );
+
+  const onUpdate = () => {
+    setQueryArgs((prev) => ({
+      options: {
+        ...prev.options,
+        fetchKey: (prev.options.fetchKey ?? 0) + 1,
+      },
+      variables: { id: getId() },
+    }));
+  };
 
   return (
     <Container>
@@ -51,9 +92,15 @@ export const Main = (props: MainProps) => {
         hasNext={hasNext}
         loadNext={loadNext}
         isLoadingNext={isLoadingNext}
+        onUpdate={onUpdate}
+        completed={completed}
+        count={count}
       />
       {query.id ? (
-        <TodoDetail connectionId={data?.todo_connection?.__id} />
+        <TodoDetail
+          connectionId={data?.todo_connection?.__id}
+          onUpdate={onUpdate}
+        />
       ) : undefined}
       {openAdd ? (
         <AddCard
