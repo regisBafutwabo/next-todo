@@ -28,12 +28,14 @@ const Home: NextPage = () => {
     useQueryLoader<TodosListQuery>(TodosList);
 
   useEffect(() => {
-    todoListLoadQuery({
-      first: 5,
-      where: { deleted_at: { _is_null: true } },
-      order_by: [{ completed: "asc" }, { created_at: "desc" }],
-    });
-  }, [todoListLoadQuery]);
+    if (isAuthenticated) {
+      todoListLoadQuery({
+        first: 5,
+        where: { deleted_at: { _is_null: true } },
+        order_by: [{ completed: "asc" }, { created_at: "desc" }],
+      });
+    }
+  }, [todoListLoadQuery, isAuthenticated]);
 
   return (
     <>
