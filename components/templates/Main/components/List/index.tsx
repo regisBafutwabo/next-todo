@@ -16,8 +16,7 @@ import {
 import { TodosListProps } from "./TodosList.interface";
 
 export const List = (props: TodosListProps) => {
-  const { data, hasNext, isLoadingNext, loadNext, onUpdate, completed, count } =
-    props;
+  const { data, hasNext, isLoadingNext, loadNext, onUpdate } = props;
   const { push } = useRouter();
 
   const lists = useMemo(() => data?.todo_connection?.edges, [data]);
