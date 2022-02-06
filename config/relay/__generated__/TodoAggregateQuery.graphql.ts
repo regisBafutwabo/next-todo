@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4c060ac67ba64fdcdc0b9bb9d542948b>>
+ * @generated SignedSource<<94aad488ee1d45cdc4b036525126c6ac>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,9 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type TodoAggregateQuery$variables = {
-  id: string;
-};
+export type TodoAggregateQuery$variables = {};
 export type TodoAggregateQueryVariables = TodoAggregateQuery$variables;
 export type TodoAggregateQuery$data = {
   readonly users_connection: {
@@ -38,32 +36,10 @@ export type TodoAggregateQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "id"
-  }
-],
-v1 = {
-  "kind": "Literal",
-  "name": "deleted_at",
-  "value": {
-    "_is_null": true
-  }
+var v0 = {
+  "_is_null": true
 },
-v2 = {
-  "fields": [
-    {
-      "kind": "Variable",
-      "name": "_eq",
-      "variableName": "id"
-    }
-  ],
-  "kind": "ObjectValue",
-  "name": "user_id"
-},
-v3 = [
+v1 = [
   {
     "alias": null,
     "args": null,
@@ -83,54 +59,48 @@ v3 = [
     "storageKey": null
   }
 ],
-v4 = {
+v2 = {
   "alias": "completed",
   "args": [
     {
-      "fields": [
-        {
-          "kind": "Literal",
-          "name": "completed",
-          "value": {
-            "_eq": true
-          }
+      "kind": "Literal",
+      "name": "where",
+      "value": {
+        "completed": {
+          "_eq": true
         },
-        (v1/*: any*/),
-        (v2/*: any*/)
-      ],
-      "kind": "ObjectValue",
-      "name": "where"
+        "deleted_at": (v0/*: any*/)
+      }
     }
   ],
   "concreteType": "todo_aggregate",
   "kind": "LinkedField",
   "name": "todos_aggregate",
   "plural": false,
-  "selections": (v3/*: any*/),
-  "storageKey": null
+  "selections": (v1/*: any*/),
+  "storageKey": "todos_aggregate(where:{\"completed\":{\"_eq\":true},\"deleted_at\":{\"_is_null\":true}})"
 },
-v5 = {
+v3 = {
   "alias": "allTodos",
   "args": [
     {
-      "fields": [
-        (v1/*: any*/),
-        (v2/*: any*/)
-      ],
-      "kind": "ObjectValue",
-      "name": "where"
+      "kind": "Literal",
+      "name": "where",
+      "value": {
+        "deleted_at": (v0/*: any*/)
+      }
     }
   ],
   "concreteType": "todo_aggregate",
   "kind": "LinkedField",
   "name": "todos_aggregate",
   "plural": false,
-  "selections": (v3/*: any*/),
-  "storageKey": null
+  "selections": (v1/*: any*/),
+  "storageKey": "todos_aggregate(where:{\"deleted_at\":{\"_is_null\":true}})"
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "TodoAggregateQuery",
@@ -159,8 +129,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v4/*: any*/),
-                  (v5/*: any*/)
+                  (v2/*: any*/),
+                  (v3/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -176,7 +146,7 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "TodoAggregateQuery",
     "selections": [
@@ -204,8 +174,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v4/*: any*/),
-                  (v5/*: any*/),
+                  (v2/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -225,16 +195,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "31321a5f295eba8c01561fc71c4c21a8",
+    "cacheID": "3f0ad5ae24fe0e83c89fb0769c54d719",
     "id": null,
     "metadata": {},
     "name": "TodoAggregateQuery",
     "operationKind": "query",
-    "text": "query TodoAggregateQuery(\n  $id: uuid!\n) {\n  users_connection {\n    edges {\n      node {\n        completed: todos_aggregate(where: {deleted_at: {_is_null: true}, user_id: {_eq: $id}, completed: {_eq: true}}) {\n          aggregate {\n            count\n          }\n        }\n        allTodos: todos_aggregate(where: {deleted_at: {_is_null: true}, user_id: {_eq: $id}}) {\n          aggregate {\n            count\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query TodoAggregateQuery {\n  users_connection {\n    edges {\n      node {\n        completed: todos_aggregate(where: {deleted_at: {_is_null: true}, completed: {_eq: true}}) {\n          aggregate {\n            count\n          }\n        }\n        allTodos: todos_aggregate(where: {deleted_at: {_is_null: true}}) {\n          aggregate {\n            count\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ec2306e4344c44d04d214e3dfbdecd7e";
+(node as any).hash = "1ad5611293e5b5822da47a595c0c5e08";
 
 export default node;

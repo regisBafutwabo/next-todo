@@ -12,15 +12,11 @@ import {
   ButtonContainer,
   Container,
   LoadMoreButton,
-  Progress,
-  ProgressContainer,
-  ProgressDetail,
 } from "./styles";
 import { TodosListProps } from "./TodosList.interface";
 
 export const List = (props: TodosListProps) => {
-  const { data, hasNext, isLoadingNext, loadNext, onUpdate, completed, count } =
-    props;
+  const { data, hasNext, isLoadingNext, loadNext, onUpdate } = props;
   const { push } = useRouter();
 
   const lists = useMemo(() => data?.todo_connection?.edges, [data]);
@@ -47,7 +43,7 @@ export const List = (props: TodosListProps) => {
   return (
     <>
       <Container dense>
-        <ProgressContainer>
+        {/* <ProgressContainer>
           <Progress
             variant="determinate"
             value={
@@ -56,7 +52,7 @@ export const List = (props: TodosListProps) => {
             color="secondary"
           />
           <ProgressDetail>{`${completed}/${count}`}</ProgressDetail>
-        </ProgressContainer>
+        </ProgressContainer> */}
 
         {lists &&
           lists.map((item) => (

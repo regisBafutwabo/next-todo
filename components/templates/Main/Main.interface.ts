@@ -17,7 +17,4 @@ export type QueryArgsType = {
     fetchPolicy?: FetchPolicy | undefined;
     networkCacheConfig?: CacheConfig | undefined;
   };
-  variables: {
-    id: string;
-  };
 };
