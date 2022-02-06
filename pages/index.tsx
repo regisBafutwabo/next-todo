@@ -15,12 +15,15 @@ import {
 import type { NextPage } from "next";
 import { useQueryLoader } from "react-relay";
 
+import { useAuth0 } from "@auth0/auth0-react";
 import {
+  Button,
   CircularProgress,
   Typography,
 } from "@mui/material";
 
 const Home: NextPage = () => {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [todoListQueryRef, todoListLoadQuery] =
     useQueryLoader<TodosListQuery>(TodosList);
 
@@ -34,7 +37,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <HeadTitle title="Home - Todo" />
+      <HeadTitle title="Todo - Home" />
       <StandardLayout>
         <Typography
           variant="h1"
@@ -52,11 +55,31 @@ const Home: NextPage = () => {
         >
           Welcome to Todos!
         </Typography>
-        {todoListQueryRef ? (
+
+        {todoListQueryRef && isAuthenticated ? (
           <Suspense fallback={<CircularProgress color="secondary" />}>
             <Main todoListQueryRef={todoListQueryRef} />
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={() => logout()}
+            >
+              Logout
+            </Button>
           </Suspense>
-        ) : undefined}
+        ) : (
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() =>
+              loginWithRedirect({
+                redirectUri: `${window.location.origin}/callback`,
+              })
+            }
+          >
+            Login
+          </Button>
+        )}
       </StandardLayout>
     </>
   );

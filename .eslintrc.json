@@ -14,7 +14,6 @@
     "prettier"
   ],
   "plugins": [
-    // "@typescript-eslint",
     "prettier"
   ],
   "parserOptions": {
@@ -28,6 +27,7 @@
     "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
     "no-underscore-dangle":"off",
     "no-alert":"off",
     "react/jsx-filename-extension": [

@@ -9,6 +9,7 @@ import {
 } from "react-hook-form";
 import { TodoService } from "services";
 import { AddFormInput } from "typings/form";
+import { getId } from "utils/accessToken";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CircularProgress } from "@mui/material";
@@ -39,6 +40,7 @@ export const AddCard = ({ onClose, connectionId }: AddCardProps) => {
     TodoService.createTodo({
       variables: {
         object: {
+          user_id: getId(),
           title: data.title,
           completed: false,
           created_at: createdAt,

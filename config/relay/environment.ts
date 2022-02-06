@@ -1,7 +1,7 @@
-import {
-  API_HOST,
-  HASURA_ADMIN_KEY,
-} from "_constants/index";
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { API_HOST } from "_constants/index";
 import Router from "next/router";
 import {
   Environment,
@@ -9,16 +9,21 @@ import {
   RecordSource,
   Store,
 } from "relay-runtime";
+import { getAccessToken } from "utils/accessToken";
 
 const fetchQuery = async (params: any, variables: any) => {
   try {
+    const token: string = getAccessToken();
+
     const response = await fetch(`https://${API_HOST}/v1beta1/relay`, {
       method: "POST",
       headers: {
-        "x-hasura-admin-secret": HASURA_ADMIN_KEY || "",
+        Authorization: `Bearer ${token}`,
+        // "x-hasura-user-id": "",
+        // "x-hasura-admin-secret": HASURA_ADMIN_KEY || "",
       },
       body: JSON.stringify({
-        query: params.text,
+        query: params?.text,
         variables,
       }),
     });
@@ -30,7 +35,7 @@ const fetchQuery = async (params: any, variables: any) => {
     }
     return result;
   } catch (error) {
-    Router.push({
+    await Router.push({
       pathname: "500",
       query: {
         errorCode: (error as any)[0].extensions.code as any,

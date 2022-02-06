@@ -36,7 +36,7 @@ import {
 } from "./styles";
 import { TodoDetailProps } from "./TodoDetail.interface";
 
-export const TodoDetail = ({ connectionId }: TodoDetailProps) => {
+export const TodoDetail = ({ connectionId, onUpdate }: TodoDetailProps) => {
   const { enqueueSnackbar } = useSnackbar();
   const { replace, query } = useRouter();
   const { control, handleSubmit, formState } = useForm<EditFormInput>({
@@ -79,6 +79,7 @@ export const TodoDetail = ({ connectionId }: TodoDetailProps) => {
         onCompleted: async () => {
           setIsEdit(false);
           setDeleting(false);
+          onUpdate();
           await replace("/");
           enqueueSnackbar("this Todo was successfully deleted!", {
             variant: "success",
@@ -120,6 +121,7 @@ export const TodoDetail = ({ connectionId }: TodoDetailProps) => {
         onCompleted: () => {
           setIsEdit(false);
           setUpdating(false);
+          onUpdate();
           enqueueSnackbar("Your changes were successfully updated!", {
             variant: "success",
           });

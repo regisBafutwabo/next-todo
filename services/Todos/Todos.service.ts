@@ -64,7 +64,7 @@ export class TodoService {
 
     return commitMutation(RelayEnvironment, {
       mutation: UpdateTodo,
-      variables: variables,
+      variables,
       onCompleted,
       updater: (store) => {
         const payload = store.getRootField("update_todo_by_pk");
@@ -74,7 +74,7 @@ export class TodoService {
 
         RelayService.onDeleteUpdater({
           store,
-          connectionId: connectionId,
+          connectionId,
           deletedId,
         });
       },
