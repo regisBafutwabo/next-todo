@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dba63986c5b618f215153c0d781906f9>>
+ * @generated SignedSource<<eda6bd6b6d558a4daf71846df4306fa0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,40 @@ export type todo_order_by = {
   id?: order_by | null;
   title?: order_by | null;
   updated_at?: order_by | null;
+  user?: users_order_by | null;
+  user_id?: order_by | null;
+};
+export type users_order_by = {
+  auth0_id?: order_by | null;
+  email?: order_by | null;
+  id?: order_by | null;
+  name?: order_by | null;
+  password?: order_by | null;
+  picture?: order_by | null;
+  todos_aggregate?: todo_aggregate_order_by | null;
+};
+export type todo_aggregate_order_by = {
+  count?: order_by | null;
+  max?: todo_max_order_by | null;
+  min?: todo_min_order_by | null;
+};
+export type todo_max_order_by = {
+  created_at?: order_by | null;
+  deleted_at?: order_by | null;
+  description?: order_by | null;
+  id?: order_by | null;
+  title?: order_by | null;
+  updated_at?: order_by | null;
+  user_id?: order_by | null;
+};
+export type todo_min_order_by = {
+  created_at?: order_by | null;
+  deleted_at?: order_by | null;
+  description?: order_by | null;
+  id?: order_by | null;
+  title?: order_by | null;
+  updated_at?: order_by | null;
+  user_id?: order_by | null;
 };
 export type todo_bool_exp = {
   _and?: ReadonlyArray<todo_bool_exp> | null;
@@ -31,6 +65,8 @@ export type todo_bool_exp = {
   id?: uuid_comparison_exp | null;
   title?: String_comparison_exp | null;
   updated_at?: timestamptz_comparison_exp | null;
+  user?: users_bool_exp | null;
+  user_id?: uuid_comparison_exp | null;
 };
 export type Boolean_comparison_exp = {
   _eq?: boolean | null;
@@ -85,6 +121,18 @@ export type uuid_comparison_exp = {
   _lte?: string | null;
   _neq?: string | null;
   _nin?: ReadonlyArray<string> | null;
+};
+export type users_bool_exp = {
+  _and?: ReadonlyArray<users_bool_exp> | null;
+  _not?: users_bool_exp | null;
+  _or?: ReadonlyArray<users_bool_exp> | null;
+  auth0_id?: String_comparison_exp | null;
+  email?: String_comparison_exp | null;
+  id?: uuid_comparison_exp | null;
+  name?: String_comparison_exp | null;
+  password?: String_comparison_exp | null;
+  picture?: String_comparison_exp | null;
+  todos?: todo_bool_exp | null;
 };
 export type TodosPaginationQuery$variables = {
   after?: string | null;

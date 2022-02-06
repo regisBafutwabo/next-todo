@@ -1,4 +1,7 @@
-import { useCallback } from "react";
+import {
+  useCallback,
+  useMemo,
+} from "react";
 
 import { useRouter } from "next/router";
 
@@ -9,15 +12,19 @@ import {
   ButtonContainer,
   Container,
   LoadMoreButton,
+  Progress,
+  ProgressContainer,
+  ProgressDetail,
 } from "./styles";
 import { TodosListProps } from "./TodosList.interface";
 
 export const List = (props: TodosListProps) => {
-  const { data, hasNext, isLoadingNext, loadNext } = props;
+  const { data, hasNext, isLoadingNext, loadNext, onUpdate, completed, count } =
+    props;
   const { push } = useRouter();
 
-  const lists = data?.todo_connection?.edges;
-  const connectionId = data?.todo_connection?.__id;
+  const lists = useMemo(() => data?.todo_connection?.edges, [data]);
+  const connectionId = useMemo(() => data?.todo_connection?.__id, [data]);
 
   const onClick = async (id: string) => {
     await push({ query: { id } });
@@ -40,13 +47,25 @@ export const List = (props: TodosListProps) => {
   return (
     <>
       <Container dense>
+        <ProgressContainer>
+          <Progress
+            variant="determinate"
+            value={
+              completed && count ? Math.floor((completed * 100) / count) : 0
+            }
+            color="secondary"
+          />
+          <ProgressDetail>{`${completed}/${count}`}</ProgressDetail>
+        </ProgressContainer>
+
         {lists &&
           lists.map((item) => (
             <TodoCard
               connectionId={connectionId}
               onClick={onClick}
               todo={item.node}
-              key={item.cursor}
+              key={item.node.id}
+              onUpdate={onUpdate}
             />
           ))}
       </Container>

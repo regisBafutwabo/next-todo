@@ -2,6 +2,10 @@
 // eslint-disable jsx-props-no-spreading
 import "../styles/globals.css";
 
+import {
+  AUTH_CLIENT_ID,
+  AUTH_DOMAIN,
+} from "_constants";
 import environment from "config/relay/environment";
 import theme from "config/theme";
 import type { AppProps } from "next/app";
@@ -9,6 +13,7 @@ import Head from "next/head";
 import { SnackbarProvider } from "notistack";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
 
+import { Auth0Provider } from "@auth0/auth0-react";
 import { ThemeProvider } from "@mui/system";
 
 function MetaTags() {
@@ -26,9 +31,20 @@ function MyApp({ Component, pageProps }: AppProps) {
       <MetaTags />
       <RelayEnvironmentProvider environment={environment}>
         <ThemeProvider theme={theme}>
-          <SnackbarProvider>
-            <Component {...pageProps} />
-          </SnackbarProvider>
+          <Auth0Provider
+            domain={AUTH_DOMAIN}
+            clientId={AUTH_CLIENT_ID}
+            audience="todo-next"
+            redirectUri={
+              typeof window !== "undefined"
+                ? window.location.origin
+                : "http://localhost:3000"
+            }
+          >
+            <SnackbarProvider>
+              <Component {...pageProps} />
+            </SnackbarProvider>
+          </Auth0Provider>
         </ThemeProvider>
       </RelayEnvironmentProvider>
     </>
