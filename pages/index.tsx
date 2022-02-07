@@ -25,7 +25,7 @@ import {
   useTheme,
 } from "@mui/material";
 
-const Home: NextPage = (props) => {
+const Home: NextPage = () => {
   const { palette } = useTheme();
   const { toggleColorMode } = useContext(ColorModeContext);
   const [todoListQueryRef, todoListLoadQuery] =
