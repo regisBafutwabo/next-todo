@@ -1,5 +1,6 @@
 import {
   Suspense,
+  useContext,
   useEffect,
 } from "react";
 
@@ -12,15 +13,21 @@ import {
 import {
   TodosListQuery,
 } from "config/relay/__generated__/TodosListQuery.graphql";
+import { ColorModeContext } from "context/ThemeContext";
 import type { NextPage } from "next";
 import { useQueryLoader } from "react-relay";
+import { ModeSwitch } from "styles/MuiSwitch";
 
 import {
   CircularProgress,
+  FormControl,
   Typography,
+  useTheme,
 } from "@mui/material";
 
 const Home: NextPage = () => {
+  const { palette } = useTheme();
+  const { toggleColorMode } = useContext(ColorModeContext);
   const [todoListQueryRef, todoListLoadQuery] =
     useQueryLoader<TodosListQuery>(TodosList);
 
@@ -36,6 +43,14 @@ const Home: NextPage = () => {
     <>
       <HeadTitle title="Todo - Home" />
       <StandardLayout>
+        <FormControl>
+          <ModeSwitch
+            checked={palette.mode === "light"}
+            // defaultChecked={}
+            onChange={() => toggleColorMode()}
+          />
+        </FormControl>
+
         <Typography
           variant="h1"
           sx={{

@@ -8,7 +8,7 @@ export type TodoCardProps = {
   todo: TodosPagination_list["todo_connection"]["edges"][number]["node"];
   onClick: (id: string) => Promise<void>;
   connectionId: string;
-  onUpdate: () => void;
+  onUpdate?: () => void;
 };
 
 export interface ContainerType extends ListItemBaseProps {

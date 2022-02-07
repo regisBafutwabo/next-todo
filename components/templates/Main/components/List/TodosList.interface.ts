@@ -11,7 +11,7 @@ export type TodosListProps = {
   hasNext: boolean;
   loadNext: LoadMoreFn<TodosPaginationQuery>;
   isLoadingNext: boolean;
-  onUpdate: () => void;
+  onUpdate?: () => void;
   completed?: number;
   count?: number;
 };

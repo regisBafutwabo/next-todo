@@ -15,6 +15,7 @@ export const Container = styled(ListItem, {
     borderRadius: 4,
     border: `1px solid ${palette.secondary.main}`,
     margin: spacing(1, 0),
+    color: palette.text.primary,
     textDecoration: completed ? "line-through" : "none",
     [breakpoints.down("md")]: {
       width: 300,

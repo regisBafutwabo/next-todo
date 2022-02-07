@@ -4,6 +4,11 @@ import { VERCEL_LINK } from "_constants";
 import Image from "next/image";
 
 import {
+  Box,
+  useTheme,
+} from "@mui/material";
+
+import {
   Footer,
   Logo,
   MainContainer,
@@ -11,10 +16,11 @@ import {
 } from "./styles";
 
 export const StandardLayout = (props: { children: ReactNode }) => {
+  const { palette } = useTheme();
   const { children } = props;
 
   return (
-    <>
+    <Box sx={{ backgroundColor: palette.background.default }}>
       <MainContainer>{children}</MainContainer>
       <Footer>
         <VercelLink
@@ -28,6 +34,6 @@ export const StandardLayout = (props: { children: ReactNode }) => {
           </Logo>
         </VercelLink>
       </Footer>
-    </>
+    </Box>
   );
 };

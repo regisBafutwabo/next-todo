@@ -1,4 +1,4 @@
 export type TodoDetailProps = {
   connectionId?: string;
-  onUpdate: () => void;
+  onUpdate?: () => void;
 };

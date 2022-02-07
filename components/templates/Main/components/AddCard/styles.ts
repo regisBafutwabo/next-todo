@@ -20,7 +20,7 @@ export const ButtonsContainer = styled(DialogActions)(() => ({
 export const AddButton = styled(Button)(
   ({ theme: { palette, breakpoints } }) => ({
     backgroundColor: palette.secondary.main,
-    color: palette.background.default,
+    color: palette.secondary.contrastText,
     border: `1px solid transparent`,
     [breakpoints.down("sm")]: {
       width: "100%",
