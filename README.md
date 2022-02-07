@@ -9,6 +9,8 @@ The features that are included are:
 - [x] Delete a todo
 - [x] Responsiveness
 - [ ] Connection to Blockchain
+- [ ] Theme mode
+- [ ] Persist Theme mode
 
 Tech used:
 - [x] NextJs
