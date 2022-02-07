@@ -16,7 +16,7 @@ export const ButtonContainer = styled(Box)(() => ({
 
 export const LoadMoreButton = styled(Button)(({ theme: { palette } }) => ({
   backgroundColor: palette.secondary.main,
-  color: palette.background.default,
+  color: palette.secondary.contrastText,
   textTransform: "capitalize",
 
   ":hover": {

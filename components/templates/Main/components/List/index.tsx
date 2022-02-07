@@ -61,7 +61,7 @@ export const List = (props: TodosListProps) => {
               onClick={onClick}
               todo={item.node}
               key={item.node.id}
-              onUpdate={onUpdate}
+              // onUpdate={onUpdate}
             />
           ))}
       </Container>
