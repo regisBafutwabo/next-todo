@@ -23,7 +23,7 @@ const AuthCallback: NextPage = () => {
       try {
         const accessToken = await getAccessTokenSilently();
         if (accessToken) {
-          localStorage.setItem("tok", accessToken);
+          // localStorage.setItem("tok", accessToken);
 
           replace("/");
         }
